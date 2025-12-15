@@ -32,21 +32,21 @@ export class Ludo {
       UI.unhighlightPieces();
       const currentPlayer = ACTIVE_PLAYERS[this.turn];
 
-      // Check if this is an AI's turn
+      // Check if this is AI's turn
       if (AI_PLAYERS.includes(currentPlayer)) {
         UI.disableDice(); // AI is "thinking"
         
-        // Add a delay so it feels like a real player
+        // delay so it feels like a real player
         setTimeout(() => {
           this.runAITurn(currentPlayer);
         }, 1000);
       } else {
-        // It's a human, just enable the dice
+        // when it's a human, just enable the dice
         UI.enableDice();
       }
 
     } else {
-      // Dice has been rolled (either by human or AI)
+      // Dice rolled (either by human or AI)
       UI.disableDice();
     }
   }
@@ -138,24 +138,39 @@ export class Ludo {
 
   movePiece(player, piece, moveBy) {
     const interval = setInterval(() => {
-      this.incrementPiecePosition(player, piece);
-      moveBy--;
-      if (moveBy === 0) {
-        clearInterval(interval);
-        if (this.hasPlayerWon(player)) {
-          alert(`${player} has won!`);
-          this.resetGame();
-          return;
+        this.incrementPiecePosition(player, piece);
+        moveBy--;
+
+    
+        if (moveBy === 0) {
+            clearInterval(interval);
+
+            // 1. Check for Winner
+            if (this.hasPlayerWon(player)) {
+                console.log(`WINNER: ${player}`);
+                
+                // This checks if the window function exists, then calls it
+                if (window.showWinner) {
+                    window.showWinner(player);
+                } else {
+                    alert(`${player} Wins!`); // Backup just in case
+                }
+                return; // Stop the game here
+            }
+
+            // 2. Check for Kills
+            const killed = this.checkForKill(player, piece);
+            if (killed || this.diceValue === 6) {
+                this.state = STATE.DICE_NOT_ROLLED;
+                return;
+            }
+
+            // 3. Next Turn
+            this.incrementTurn();
         }
-        const killed = this.checkForKill(player, piece);
-        if (killed || this.diceValue === 6) {
-          this.state = STATE.DICE_NOT_ROLLED;
-          return;
-        }
-        this.incrementTurn();
-      }
+        
     }, 180);
-  }
+}
 
   checkForKill(player, pieceIndex) {
     const pos = this.currentPositions[player][pieceIndex];
@@ -185,7 +200,7 @@ export class Ludo {
     const cur = this.currentPositions[player][piece];
     if (cur === TURNING_POINTS[player]) return HOME_ENTRANCE[player][0];
     if (cur === 51) return 0;
-    // if the piece is already inside HOME_ENTRANCE path (numbers 100/200 etc), increment to next home
+    // if the piece is already inside HOME_ENTRANCE path (numbers 100/200 etc)
     // allow entry into final HOME position too
     if (cur >= 100) {
       // find index in its home array
@@ -221,9 +236,9 @@ export class Ludo {
     }, 800);
   }
 
-  /**
-   * AI Strategy: Decides which piece to move
-   */
+  
+   // AI Strategy: Decides which piece to move
+  
   aiChooseBestMove(player, eligiblePieces) {
     // Priority 1: Can I capture an opponent?
     for (const piece of eligiblePieces) {
@@ -271,7 +286,7 @@ export class Ludo {
       // Treat base positions as 0
       if (pos >= 500) pos = 0; 
       // Treat home positions as a high number
-      if (pos >= 100) pos += 52; // (Just a simple way to prioritize home path)
+      if (pos >= 100) pos += 52; 
       
       if (pos > furthestPos) {
         furthestPos = pos;
@@ -282,9 +297,9 @@ export class Ludo {
     return bestPiece;
   }
 
-  /**
-   * AI Helper: Checks if a future move will be a "kill"
-   */
+  
+   // AI Helper: Checks if a future move will be a "kill"
+   
   isKillMove(player, newPosition) {
     if (SAFE_POSITIONS.includes(newPosition)) {
       return false;
@@ -302,9 +317,9 @@ export class Ludo {
     return false;
   }
 
-  /**
-   * AI Helper: Simulates a move to see the final position
-   */
+ 
+   // AI Helper: Simulates a move to see the final position
+  
   getFuturePosition(player, piece, moves) {
     let currentPos = this.currentPositions[player][piece];
 
@@ -330,7 +345,7 @@ export class Ludo {
         } else if (idx === arr.length - 1) {
           currentPos = HOME_POSITIONS[player];
         }
-        // If it's already at home, it can't move, but we check this in getEligiblePieces
+        // If it's already at home, it can't move
       } 
       else {
         currentPos++;

@@ -19,7 +19,7 @@ export const COORDINATES_MAP = {
     300:[1,7],301:[2,7],302:[3,7],303:[4,7],304:[5,7],305:[6,7],
     400:[13,7],401:[12,7],402:[11,7],403:[10,7],404:[9,7],405:[8,7],
 
-    // bases
+    // bases paths
     500:[1.5,10.58],501:[3.57,10.58],502:[1.5,12.43],503:[3.57,12.43],
     600:[10.5,1.58],601:[12.54,1.58],602:[10.5,3.45],603:[12.54,3.45],
     700:[1.5,1.58],701:[3.57,1.58],702:[1.5,3.45],703:[3.57,3.45],
@@ -36,16 +36,16 @@ export function setActivePlayers(count) {
     AI_PLAYERS = [];
     switch (count) {
         case 4:
-            // This is the custom 1 -> 4 -> 2 -> 3 order you requested
+            // player 1 -> 4 -> 2 -> 3 order
             ACTIVE_PLAYERS = ["Player1", "Player4", "Player2", "Player3"];
             break;
         case 3:
-            // This is the default 3-player order (1 -> 2 -> 3)
+            // player order (1 -> 2 -> 3)
             ACTIVE_PLAYERS = ["Player1", "Player3", "Player2"];
             break;
         case 2:
         default:
-            // This is the default 2-player order (1 -> 2)
+            //player order (1 -> 2)
             ACTIVE_PLAYERS = ["Player1", "Player2"];
             break;
     }

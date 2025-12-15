@@ -159,4 +159,159 @@
 
 
 
+/* Winner Modal */
+.winner-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease;
+  z-index: 9999;
+}
 
+/* Modal Box */
+winner-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  
+  /* 🔥 Background Image */
+  background: url('https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1600&q=80')
+              center/cover no-repeat;
+
+  /* Dark overlay + blur */
+  background-blend-mode: overlay;
+  background-color: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease;
+  z-index: 9999;
+}
+
+/* Modal Box */
+.winner-box {
+  background: rgba(255, 255, 255, 0.13);
+  backdrop-filter: blur(20px);
+  padding: 40px 55px;
+  border-radius: 20px;
+  text-align: center;
+  width: 380px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.45);
+  animation: popIn 0.35s ease;
+}
+
+/* Trophy Icon */
+.winner-icon {
+  font-size: 65px;
+  margin-bottom: 12px;
+  animation: bounce 0.8s infinite alternate ease-in-out;
+}
+
+/* Title */
+.winner-title {
+  color: #fff;
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
+
+/* Button */
+.winner-btn {
+  padding: 14px 28px;
+  background: #00c853;
+  border: none;
+  color: white;
+  font-size: 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  width: 100%;
+  transition: 0.25s ease;
+  font-weight: 600;
+}
+
+.winner-btn:hover {
+  background: #00b34a;
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* Animations */
+@keyframes popIn {
+  0% { transform: scale(0.7); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes bounce {
+  from { transform: translateY(0); }
+  to { transform: translateY(-10px); }
+}
+
+
+.winner-modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85); /* Dark background */
+  z-index: 10000; 
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+}
+
+.winner-box {
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  animation: popIn 0.3s ease-out;
+}
+
+.winner-icon {
+  font-size: 60px;
+  margin-bottom: 20px;
+}
+
+.winner-title {
+  font-size: 32px;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.winner-btn {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-size: 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.winner-btn:hover {
+  transform: scale(1.05);
+  background: #218838;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.5); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}

@@ -1,33 +1,51 @@
-import { setActivePlayers, setAIPlayers } from './ludo/constants.js'; // ✅ ADD setAIPlayers
+import { setActivePlayers, setAIPlayers } from './ludo/constants.js';
 import { Ludo } from './ludo/Ludo.js';
 
-// default start with 2 players
 let game = null;
 
-function startWithPlayers(n) {
-  // set active players
-  setActivePlayers(n);
+// 1. WINNER FUNCTION
+function showWinner(playerName) {
+  console.log("Attempting to show winner modal for:", playerName);
+  const modal = document.getElementById('winner-modal');
+  const text = document.getElementById('winner-text');
 
-  // remove any existing game state by creating new instance
-  // existing Ludo uses UI's onclick assignment so no duplicate handlers
+  if (modal && text) {
+    text.innerText = playerName + ' Wins!';
+    modal.style.display = 'flex'; // This makes it visible
+  } else {
+    console.error("Could not find modal elements in HTML!");
+  }
+}
+
+// Attach to window so Ludo.js can see it
+window.showWinner = showWinner;
+
+// 2. MODAL CLOSE BUTTON 
+const closeBtn = document.getElementById('winner-close');
+if (closeBtn) {
+  closeBtn.addEventListener('click', () => {
+    document.getElementById('winner-modal').style.display = 'none';
+    location.reload();
+  });
+}
+
+// 3. GAME START LOGIC 
+function startWithPlayers(n) {
+  setActivePlayers(n);
   game = new Ludo();
 }
 
 function startWithAI() {
-  // 1. Set active players to 2
   setActivePlayers(2);
-  
-  // 2. Set Player2 as the AI
   setAIPlayers(["Player2"]);
-  
-  // 3. Create the game
   game = new Ludo();
 }
 
-// wire buttons
+// Wire buttons
 document.querySelector('#btn-2p').addEventListener('click', () => startWithPlayers(2));
 document.querySelector('#btn-3p').addEventListener('click', () => startWithPlayers(3));
 document.querySelector('#btn-4p').addEventListener('click', () => startWithPlayers(4));
 document.querySelector('#btn-ai').addEventListener('click', startWithAI);
-// start default
+
+// Start default
 startWithPlayers(2);
